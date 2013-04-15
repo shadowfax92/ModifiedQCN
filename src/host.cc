@@ -14,7 +14,7 @@ void Host::initialize()
     /*
      * initializing my mac adress by using the id on the parmeters on ini file
      */
-    host_id=getIndex();
+    host_id = getIndex();
     int myId = getIndex();
     myMac = new unsigned char[6];
     myMac[0] = 0xFF;
@@ -52,7 +52,7 @@ void Host::initialize()
 
     RL = new RP((cDatarateChannel*) gate("out")->getTransmissionChannel(), this); //TODO check deletion
 
-    RL->host_id=host_id;
+    RL->host_id = host_id;
 }
 /*
  * Description:	seperating the self messages and messages from lower layer i.e the channel itself
@@ -67,8 +67,8 @@ void Host::handleMessage(cMessage *msg)
 
     //debug message
     char print_msg[100];
-    sprintf(print_msg,"handleMessage: Host_id=%d cRate=%lf tRate=%lf",host_id,RL->cRate,RL->tRate);
-    EV<<"\nhost.cc:"<<print_msg;
+    sprintf(print_msg, "handleMessage: Host_id=%d cRate=%lf tRate=%lf", host_id, RL->cRate, RL->tRate);
+    EV << "\nhost.cc:" << print_msg;
 }
 /*
  * Description:	this function handles messages that were received from CP
@@ -86,9 +86,9 @@ void Host::processMsgFromLowerLayer(Eth_pck *packet)
     if (isMine) // message is mine
     {
         char print_msg[50];
-        sprintf(print_msg, "Host.cc Host_id=% Pkt len=%d",host_id, packet->getLength());
+        sprintf(print_msg, "Host.cc Host_id=% Pkt len=%d", host_id, packet->getLength());
         bubble(print_msg);
-        EV<<"\n"<<print_msg;
+        EV << "\n" << print_msg;
 
         if (packet->getLength() == FEEDBACK)
         {
@@ -264,7 +264,8 @@ RP::RP(cDatarateChannel* channel, cModule* me)
     cRate = channel->getDatarate();
     tRate = channel->getDatarate();
     MAX_DATA_RATE = channel->getDatarate();
-    TXBCount = me->getAncestorPar("BC_LIMIT");
+    //adding the dynmic BC_LIMIT solution
+    TXBCount = cRate * 24 * pow(10, -5); //TXBCount = me->getAncestorPar("BC_LIMIT");
     SICount = 0;
     timer = false;
     timerSCount = 0;

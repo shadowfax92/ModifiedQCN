@@ -4,4 +4,5 @@ inspector "Dumbell.switch[0].conP[4]" "CP" "3" "503x215+852+257:normal"
 inspector "Dumbell.switch[1]" "Switch" "2" "305x342+3+353:normal"
 inspector "Dumbell.switch[1].conP[0]" "CP" "3" "503x179+848+510:normal"
 inspector "Dumbell.switch[1].conP[1]" "CP" "3" "503x218+851+0:normal"
+inspector "Dumbell" "Dumbell" "2" "565x342+156+156:normal"
 
