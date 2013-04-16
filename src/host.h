@@ -47,6 +47,15 @@ public:
      */
     virtual void timeExpired();
 
+    /*
+     * Drift clock functions
+     */
+    virtual void startDriftClock();
+
+    virtual void restartDriftClock();
+
+    virtual void driftClockTimerExpired();
+
     double getMaxDataRate() {
         return MAX_DATA_RATE;
     }

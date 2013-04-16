@@ -57,6 +57,7 @@ void Host::initialize()
 /*
  * Description:	seperating the self messages and messages from lower layer i.e the channel itself
  */
+
 void Host::handleMessage(cMessage *msg)
 {
     if (msg->isSelfMessage())
@@ -197,7 +198,7 @@ Eth_pck* Host::generateMessage(int type, unsigned char destination, unsigned int
     return pck;
 }
 /*
- *	Description:	this function handles regular messages,
+ *	Description: this function handles regular messages,
  *					if a request message is recieved then a reply message is prepared in the queue
  *					stats are counted here too.
  *
@@ -443,7 +444,7 @@ void RP::selfIncrease()
 
 }
 /*
- * Description: this function will launch after TIMER_PERIOD is over, this funciton increases the stage of the timer stage counter
+ * Description: this function will launch after TIMER_PERIOD is over, this function increases the stage of the timer stage counter
  * 				it will also increase the rate of the host if state is true.
  */
 void RP::timeExpired()
@@ -472,4 +473,19 @@ void RP::timeExpired()
         simtime_t time = expirePeriod;
         hostTemp->scheduleAt(simTime() + time, selfTimer);
     }
+}
+
+void RP::startDriftClock()
+{
+
+}
+
+void RP::restartDriftClock()
+{
+
+}
+
+void RP::driftClockTimerExpired()
+{
+
 }
