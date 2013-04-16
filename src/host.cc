@@ -53,6 +53,9 @@ void Host::initialize()
     RL = new RP((cDatarateChannel*) gate("out")->getTransmissionChannel(), this); //TODO check deletion
 
     RL->host_id = host_id;
+
+    //start drift clock
+    RL->startDriftClock();
 }
 /*
  * Description:	seperating the self messages and messages from lower layer i.e the channel itself
@@ -94,6 +97,8 @@ void Host::processMsgFromLowerLayer(Eth_pck *packet)
         if (packet->getLength() == FEEDBACK)
         {
             bubble("received feedback message");
+            //since feedback message is received. restart drift clock
+            RL->restartDriftClock();
             RL->FeedbackMsg(packet);
         }
         else // regular message need to pass to check if its mine. and do stuff
@@ -144,6 +149,19 @@ void Host::processSelfTimer(cMessage *msg)
     if (!strcmp(msg->getName(), "timeExpired"))
     {
         RL->timeExpired();
+    }
+    if (!strcmp(msg->getName(), "driftTimeExpired"))
+    {
+        //TODO check this drift clock code
+        cChannel* cha = gate("out")->getTransmissionChannel();
+        cDatarateChannel * cha1 = (cDatarateChannel*) cha;
+        double drift_clock_increase_rate = RL->getDriftClockIncreaseParamter();
+        double current_date_rate=RL->cRate;
+        double new_date_rate=current_date_rate*drift_clock_increase_rate;
+        RL->cRate=new_date_rate;
+        cha1->setDatarate(new_date_rate);
+        RL->timeExpired();
+        EV<<"host.cc: drift timer expired\n previous rate="<<current_date_rate<<"\nnew rate="<<new_date_rate;
     }
 }
 /*
@@ -284,6 +302,7 @@ RP::RP(cDatarateChannel* channel, cModule* me)
 RP::~RP()
 {
     delete selfTimer;
+    delete driftClockTimerMessage;
 }
 
 void RP::FeedbackMsg(Eth_pck* msg)
@@ -477,15 +496,31 @@ void RP::timeExpired()
 
 void RP::startDriftClock()
 {
-
+    Host * temp = (Host*) mySelf;
+    driftClockTimerMessage = new cMessage("driftTimeExpired");
+    double drift_clock_timer = mySelf->getAncestorPar("DRIFT_CLOCK_TIMER");
+    simtime_t time = drift_clock_timer;
+    temp->scheduleAt(simTime() + time, driftClockTimerMessage);
+    EV<<"\nhost.cc: drift clock started";
 }
 
 void RP::restartDriftClock()
 {
+    //cancel the previous timer
+    Host * temp = (Host*) mySelf;
+    temp->cancelAndDelete(driftClockTimerMessage);
+    driftClockTimerMessage = new cMessage("driftTimeExpired");
 
+    double drift_clock_timer = mySelf->getAncestorPar("DRIFT_CLOCK_TIMER");
+
+    // starting the timer again
+    simtime_t time = drift_clock_timer;
+    temp->scheduleAt(simTime() + time, driftClockTimerMessage);
 }
 
-void RP::driftClockTimerExpired()
+double RP::getDriftClockIncreaseParamter()
 {
-
+    Host * temp = (Host*) mySelf;
+    double drift_clock_increase = mySelf->getAncestorPar("DRIFT_CLOCK_INCREASE_FACTOR");
+    return drift_clock_increase;
 }

@@ -54,7 +54,7 @@ public:
 
     virtual void restartDriftClock();
 
-    virtual void driftClockTimerExpired();
+    virtual double getDriftClockIncreaseParamter();
 
     double getMaxDataRate() {
         return MAX_DATA_RATE;
@@ -68,6 +68,9 @@ public:
     int timerSCount;
     cModule* mySelf;
     cMessage* selfTimer;
+
+    //drift clock message
+    cMessage* driftClockTimerMessage;
 
     int host_id;
 private:
