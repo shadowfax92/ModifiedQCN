@@ -60,7 +60,6 @@ void Host::initialize()
 /*
  * Description:	seperating the self messages and messages from lower layer i.e the channel itself
  */
-
 void Host::handleMessage(cMessage *msg)
 {
     if (msg->isSelfMessage())
@@ -156,12 +155,12 @@ void Host::processSelfTimer(cMessage *msg)
         cChannel* cha = gate("out")->getTransmissionChannel();
         cDatarateChannel * cha1 = (cDatarateChannel*) cha;
         double drift_clock_increase_rate = RL->getDriftClockIncreaseParamter();
-        double current_date_rate=RL->cRate;
-        double new_date_rate=current_date_rate*drift_clock_increase_rate;
-        RL->cRate=new_date_rate;
+        double current_date_rate = RL->cRate;
+        double new_date_rate = current_date_rate * drift_clock_increase_rate;
+        RL->cRate = new_date_rate;
         cha1->setDatarate(new_date_rate);
         RL->timeExpired();
-        EV<<"host.cc: drift timer expired\n previous rate="<<current_date_rate<<"\nnew rate="<<new_date_rate;
+        EV << "host.cc: drift timer expired\n previous rate=" << current_date_rate << "\nnew rate=" << new_date_rate;
     }
 }
 /*
@@ -501,7 +500,7 @@ void RP::startDriftClock()
     double drift_clock_timer = mySelf->getAncestorPar("DRIFT_CLOCK_TIMER");
     simtime_t time = drift_clock_timer;
     temp->scheduleAt(simTime() + time, driftClockTimerMessage);
-    EV<<"\nhost.cc: drift clock started";
+    EV << "\nhost.cc: drift clock started";
 }
 
 void RP::restartDriftClock()

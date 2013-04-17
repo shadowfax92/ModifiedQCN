@@ -2,11 +2,13 @@
 #define __CNGCONTROL_CP_H_
 
 #include <omnetpp.h>
+#include <hash_map>
 #include "Eth_pck_m.h"
 #include "feedBack_m.h"
 #include <string.h>
 #include <stdio.h>
 #include <vector>
+
 using namespace std;
 
 /*
@@ -14,70 +16,70 @@ using namespace std;
  */
 class CPalg
 {
- public:
-	double qeq;
-	double qlen;
-	double tLoss;//TODO
-	double qlenOld;
-	unsigned int qntzFb;
-	int w;
-	int fb;
-	int generateFbFrame;
-	double timeToMark;
-	cModule *fatherModul;
+    public:
+        double qeq;
+        double qlen;
+        double tLoss; //TODO
+        double qlenOld;
+        unsigned int qntzFb;
+        int w;
+        int fb;
+        int generateFbFrame;
+        double timeToMark;
+        cModule *fatherModul;
 
-	int CP_id;
+        int CP_id;
 
+        //dynamic table hash map
+        //hash_map<char[6], simtime_t> dynamic_table;
 
- public:
+    public:
 
-	//statistic variables and graphs
-	double maxLen;
+        //statistic variables and graphs
+        double maxLen;
 
-	//cOutVector qLenStat;
+        //cOutVector qLenStat;
 
-	static double markTable[8];
-	CPalg(cModule *fatherM,int CP_id);
-	~CPalg();
-	virtual Eth_pck *receivedFrame(Eth_pck *incomeFrame);
-	virtual unsigned int quantitize(int toQuan);
-	virtual bool addQlen(double len);
-	virtual void popQlen(double len);
-	virtual void resetQlen();
+        static double markTable[8];
+        CPalg(cModule *fatherM, int CP_id);
+        ~CPalg();
+        virtual Eth_pck *receivedFrame(Eth_pck *incomeFrame);
+        virtual unsigned int quantitize(int toQuan);
+        virtual bool addQlen(double len);
+        virtual void popQlen(double len);
+        virtual void resetQlen();
 };
-double CPalg::markTable[8]={150.0,75.0,50.0,37.5,30.0,25.0,21.5,18.5};
+double CPalg::markTable[8] = { 150.0, 75.0, 50.0, 37.5, 30.0, 25.0, 21.5, 18.5 };
 
 /**
  * TODO - Generated class
  */
 class CP : public cSimpleModule
 {
-public:
-	/* statistics variables */
-	simsignal_t qlenSig;
+    public:
+        /* statistics variables */
+        simsignal_t qlenSig;
 
-	simsignal_t lossSig;
+        simsignal_t lossSig;
 
-	simsignal_t fbSig;
-	double lastTime;
-	double interval;
-	int fbCnt;
-	int CP_id;
-protected:
-	CPalg *cpPoint;
-	cMessage * selfEvent;
-	virtual void initialize();
-	virtual void handleMessage(cMessage *msg);
-	virtual void finish();
-	virtual void processMsg(Eth_pck *msg);
-	virtual void processSelfTimer(cMessage *msg);
-	virtual void msgTransmit(cMessage *selfMsg, int type);
-private:
-	vector<Eth_pck*> fbMsgQueue; // Feed Back messages are stored here if channel is busy
-	vector<Eth_pck*> genMsgQueue; // General messages are stored here if channel is busy
-
+        simsignal_t fbSig;
+        double lastTime;
+        double interval;
+        int fbCnt;
+        int CP_id;
+    protected:
+        CPalg *cpPoint;
+        cMessage * selfEvent;
+        virtual void initialize();
+        virtual void handleMessage(cMessage *msg);
+        virtual void finish();
+        virtual void processMsg(Eth_pck *msg);
+        virtual void processSelfTimer(cMessage *msg);
+        virtual void msgTransmit(cMessage *selfMsg, int type);
+    private:
+        vector<Eth_pck*> fbMsgQueue; // Feed Back messages are stored here if channel is busy
+        vector<Eth_pck*> genMsgQueue; // General messages are stored here if channel is busy
 
 };
-
 
 #endif
