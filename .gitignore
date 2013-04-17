@@ -7,8 +7,13 @@
 .metadata
 bin/
 tmp/
-./src/results/*
-\src\results\*
+#my ignores
+*.tkenvlog
+*.tkenvrc
+*.sca
+*.vci
+*.vec
+
 *.tmp
 *.bak
 *.swp

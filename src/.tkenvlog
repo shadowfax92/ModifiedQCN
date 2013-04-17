@@ -500,3 +500,27 @@ Tcl error: tkutil.cc#271: missing close-brace
 ".main.text insert end {Initialized Host with MAC(index)="
 
 
+----------------------------------------------------------------------
+
+
+Tcl error: tkutil.cc#271: missing close-brace
+    while executing
+".main.text insert end {Initialized Host with MAC(index)="
+
+
+----------------------------------------------------------------------
+
+
+Tcl error: tkutil.cc#271: missing close-brace
+    while executing
+".main.text insert end {Initialized Host with MAC(index)="
+
+
+----------------------------------------------------------------------
+
+
+Tcl error: tkutil.cc#271: missing close-brace
+    while executing
+".main.text insert end {Initialized Host with MAC(index)="
+
+
