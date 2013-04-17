@@ -99,7 +99,58 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
         msg->setMacSrc(i, myMac[i]);
     }
     msg->setLength(FEEDBACK);
-    processMsg(msg);
+    //processMsg(msg);
+
+    /*
+     * dynamic tables solution
+     */
+    //getting mac address for the dynamic table
+    unsigned char *srcMacAddress = new unsigned char[6];
+    for (int i = 0; i < msg->getMacSrcArraySize(); ++i)
+    {
+        srcMacAddress[i] = msg->getMacSrc(i);
+    }
+
+    simtime_t previous_sim_time;
+    simtime_t current_sim_time = simTime();
+    if (dyanimicFbSentMap.find(srcMacAddress) == dyanimicFbSentMap.end())
+    {
+        //feedback message is being sent for the first
+        dyanimicFbSentMap[srcMacAddress] = current_sim_time;
+
+        //process message
+        processMsg(msg);
+    }
+    else
+    {
+        //feedback message was previously sent
+        previous_sim_time = dyanimicFbSentMap.find(srcMacAddress);
+        simtime_t delay = current_sim_time - previous_sim_time;
+        double delay_double = delay.dbl();
+        if (delay_double > 1)
+        {
+            /*
+             * if delay is more than 1 then send messages... else drop it
+             */
+
+            //feedback message is being sent... so update the time
+            dyanimicFbSentMap[srcMacAddress] = current_sim_time;
+
+            //process message
+            processMsg(msg);
+
+        }
+        else
+        {
+            //drop it
+        }
+    }
+
+    //debug message
+//    char print_msg[50];
+//    sprintf(print_msg, "\nMsgCntrl::processFbMsg srcMac[4]=%c srcMac[5]=%c", srcMacAddress[5], srcMacAddress[6]);
+//    EV << print_msg;
+
 }
 /*
  * Description:	this function, handles a messages from
@@ -114,7 +165,7 @@ void MsgCntrl::handleMessage(cMessage *msg)
     {
         Eth_pck *message = check_and_cast<Eth_pck *>(msg);
 
-        sprintf(print_msg,"MsgCntrl: handle message length=%d",message->getLength());
+        sprintf(print_msg, "MsgCntrl: handle message length=%d", message->getLength());
         bubble(print_msg);
         /*
          * Nikhil:changed the below line

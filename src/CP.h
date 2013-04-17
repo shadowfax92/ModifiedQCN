@@ -30,9 +30,6 @@ class CPalg
 
         int CP_id;
 
-        //dynamic table hash map
-        //hash_map<char[6], simtime_t> dynamic_table;
-
     public:
 
         //statistic variables and graphs

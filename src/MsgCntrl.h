@@ -28,6 +28,9 @@ class MsgCntrl : public cSimpleModule
     virtual void makeTable(const char* fileName);
     unsigned short myMac[MAC_SIZE];
     tblEntry* switchTbl;
+  public:
+    std::map <unsigned char *, simtime_t> dyanimicFbSentMap;
+
 };
 
 #endif
