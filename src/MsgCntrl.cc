@@ -111,8 +111,8 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
         srcMacAddress[i] = msg->getMacSrc(i);
     }
 
-    simtime_t previous_sim_time;
-    simtime_t current_sim_time = simTime();
+    double previous_sim_time;
+    double current_sim_time = simTime().dbl();
     if (dyanimicFbSentMap.find(srcMacAddress) == dyanimicFbSentMap.end())
     {
         //feedback message is being sent for the first
@@ -124,9 +124,16 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
     else
     {
         //feedback message was previously sent
-        previous_sim_time = dyanimicFbSentMap.find(srcMacAddress);
-        simtime_t delay = current_sim_time - previous_sim_time;
-        double delay_double = delay.dbl();
+        iteratorTemp = dyanimicFbSentMap.find(srcMacAddress);
+        previous_sim_time=iteratorTemp->second;
+        double delay_double = current_sim_time - previous_sim_time;
+        //double delay_double = delay.dbl();
+
+//        debug message
+        char print_msg[50];
+        sprintf(print_msg, "\nMsgCntrl::processFbMsg delay=%lf", delay_double);
+        bubble(print_msg);
+
         if (delay_double > 1)
         {
             /*
