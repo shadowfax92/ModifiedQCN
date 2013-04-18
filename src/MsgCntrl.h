@@ -20,7 +20,7 @@ struct cmp_dynamic_fb_map
 {
         bool operator()(unsigned char *srcMacAddress1, unsigned char *srcMacAddress2)
         {
-            if(srcMacAddress1[5]>srcMacAddress2[5])
+            if (srcMacAddress1[5] > srcMacAddress2[5])
                 return true;
             else
                 return false;
@@ -30,6 +30,32 @@ struct cmp_dynamic_fb_map
 /**
  * TODO - Generated class
  */
+/*
+ * 6 character array class for MAC address
+ */
+//struct SixCharArray
+//{
+//        SixCharArray(char in[6])
+//        {
+//            memcpy(data, in, 6);
+//        }
+//        char& operator[](unsigned int idx)
+//        {
+//            return data[idx];
+//        }
+//        unsigned char data[6];
+//};
+struct cmp_sixchar_array_dynamic_fb_map
+{
+        bool operator()(unsigned char *srcMacAddress1, unsigned char *srcMacAddress2)
+        {
+            if (srcMacAddress1[5] > srcMacAddress2[5])
+                return true;
+            else
+                return false;
+        }
+};
+
 class MsgCntrl : public cSimpleModule
 {
 
@@ -45,8 +71,12 @@ class MsgCntrl : public cSimpleModule
         unsigned short myMac[MAC_SIZE];
         tblEntry* switchTbl;
     public:
-        std::map<unsigned char *, double> dyanimicFbSentMap;
-        map<unsigned char *, double>::iterator iteratorTemp;
+        std::map<char *, double> dyanimicFbSentMap;
+        map<char *, double>::iterator iteratorTemp;
+//        std::map<SixCharArray, double> dyanimicFbSentMap;
+//        map<SixCharArray, double>::iterator iteratorTemp;
+//        std::map<char[13], double> dyanimicFbSentMap;
+//        map<char[13], double>::iterator iteratorTemp;
 
 };
 
