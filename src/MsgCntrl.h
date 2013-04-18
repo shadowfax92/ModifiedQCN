@@ -6,6 +6,7 @@
 #include <Eth_pck_m.h>
 #include <vector>
 #include <string.h>
+#include <string>
 using namespace std;
 struct tblEntry
 {
@@ -33,18 +34,18 @@ struct cmp_dynamic_fb_map
 /*
  * 6 character array class for MAC address
  */
-//struct SixCharArray
-//{
-//        SixCharArray(char in[6])
-//        {
-//            memcpy(data, in, 6);
-//        }
-//        char& operator[](unsigned int idx)
-//        {
-//            return data[idx];
-//        }
-//        unsigned char data[6];
-//};
+struct SixCharArray
+{
+        SixCharArray(char in[6])
+        {
+            memcpy(data, in, 6);
+        }
+        char& operator[](unsigned int idx)
+        {
+            return data[idx];
+        }
+        char data[6];
+};
 struct cmp_sixchar_array_dynamic_fb_map
 {
         bool operator()(unsigned char *srcMacAddress1, unsigned char *srcMacAddress2)
@@ -71,10 +72,10 @@ class MsgCntrl : public cSimpleModule
         unsigned short myMac[MAC_SIZE];
         tblEntry* switchTbl;
     public:
-        std::map<char *, double> dyanimicFbSentMap;
-        map<char *, double>::iterator iteratorTemp;
-//        std::map<SixCharArray, double> dyanimicFbSentMap;
-//        map<SixCharArray, double>::iterator iteratorTemp;
+//        std::map<char *, double> dyanimicFbSentMap;
+//        map<char *, double>::iterator iteratorTemp;
+        std::map<string, double> dyanimicFbSentMap;
+        map<string, double>::iterator iteratorTemp;
 //        std::map<char[13], double> dyanimicFbSentMap;
 //        map<char[13], double>::iterator iteratorTemp;
 

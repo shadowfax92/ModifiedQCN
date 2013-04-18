@@ -97,6 +97,8 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
     //debug print message array
     char print_msg[50];
 
+    string destMacAddressString;
+
     for (unsigned int i = 0; i < msg->getMacSrcArraySize(); i++)
     {
         msg->setMacSrc(i, myMac[i]);
@@ -123,51 +125,32 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
     {
         sprintf(&converted[i * 2], "%02X", destMacAddress[i]);
     }
+    destMacAddressString=converted;
+
     sprintf(print_msg, "destSrc=%s\n", converted);
     //bubble(print_msg);
     EV << print_msg<<"\n";
 
     double previous_sim_time;
     double current_sim_time = simTime().dbl();
-    if (dyanimicFbSentMap.find(converted) == dyanimicFbSentMap.end())
+    if (dyanimicFbSentMap.find(destMacAddressString) == dyanimicFbSentMap.end())
     {
-        //feedback message is being sent for the first
-        //dyanimicFbSentMap[destMacAddress] = current_sim_time;
-        dyanimicFbSentMap.insert(std::make_pair(converted, current_sim_time));
-
-        //process message
+        dyanimicFbSentMap.insert(std::make_pair(destMacAddressString, current_sim_time));
         processMsg(msg);
 
-        //debug message
-//        sprintf(print_msg, "destSrc=%c", destMacAddress[5]);
         bubble("FIRST");
-//        EV << print_msg;
     }
     else
     {
-        //feedback message was previously sent
         iteratorTemp = dyanimicFbSentMap.find(converted);
         previous_sim_time = iteratorTemp->second;
         double delay_double = current_sim_time - previous_sim_time;
-        //double delay_double = delay.dbl();
 
-//        debug message
-//        char print_msg[50];
-//        sprintf(print_msg, "\nMsgCntrl::processFbMsg delay=%lf", delay_double);
-//        EV << print_msg;
         bubble("SECOND TIME");
 
         if (delay_double > 1)
         {
-            /*
-             * if delay is more than 1 then send messages... else drop it
-             */
-
-            //feedback message is being sent... so update the time
-            //dyanimicFbSentMap[destMacAddress] = current_sim_time;
-            dyanimicFbSentMap.insert(std::make_pair(converted, current_sim_time));
-
-            //process message
+            dyanimicFbSentMap.insert(std::make_pair(destMacAddressString, current_sim_time));
             processMsg(msg);
 
         }
@@ -176,11 +159,12 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
             //drop it
         }
     }
-
     //print the entire map
     for (iteratorTemp = dyanimicFbSentMap.begin(); iteratorTemp != dyanimicFbSentMap.end(); ++iteratorTemp)
     {
-        sprintf(print_msg, "destaddress - %s time - %lf\n", iteratorTemp->first, iteratorTemp->second);
+        string address=iteratorTemp->first;
+        double time=iteratorTemp->second;
+        sprintf(print_msg, "destaddress - %s time - %lf\n", address.c_str(), time);
         EV<<"Dynamic table values:"<<print_msg;
     }
 }
