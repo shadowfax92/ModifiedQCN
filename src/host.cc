@@ -350,7 +350,8 @@ void RP::FeedbackMsg(Eth_pck* msg)
         if (SICount != 0)
         {
             tRate = cRate;
-            TXBCount = mySelf->getAncestorPar("BC_LIMIT");
+            //TXBCount = mySelf->getAncestorPar("BC_LIMIT");
+            TXBCount = cRate * 24 * pow(10, -5); //TXBCount = me->getAncestorPar("BC_LIMIT");
         }
         // setting the stage counters
         SICount = 0;
@@ -388,7 +389,7 @@ void RP::afterTransmit(Eth_pck* msg)
 {
 
     int fastRecoveryThreshold = mySelf->getAncestorPar("FAST_RECOVERY_TH");
-    double bcLimit = mySelf->getAncestorPar("BC_LIMIT");
+    double bcLimit = cRate * 24 * pow(10, -5);//mySelf->getAncestorPar("BC_LIMIT");
     double expireThreshold = 0;
     // Rate limiter should be inactive if the current rate reached the maximum value
     if (cRate == MAX_DATA_RATE)
@@ -396,7 +397,7 @@ void RP::afterTransmit(Eth_pck* msg)
         state = false;
         cRate = MAX_DATA_RATE;
         tRate = MAX_DATA_RATE;
-        TXBCount = bcLimit;
+        TXBCount = cRate * 24 * pow(10, -5);//bcLimit;
         SICount = 0;
         if (timer)
         {
