@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #define FEEDBACK 1600
+#define DELAY_BOUND 0.000020 //In simulation time
 Define_Module(MsgCntrl);
 
 void MsgCntrl::initialize()
@@ -117,7 +118,7 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
 
     }
 
-    //printing destination MAC address
+    //converting MAC unsigned char to char
     int bufferSize = 6;
     char converted[13];
     int i;
@@ -125,11 +126,12 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
     {
         sprintf(&converted[i * 2], "%02X", destMacAddress[i]);
     }
-    destMacAddressString=converted;
+    destMacAddressString = converted;
 
-    sprintf(print_msg, "destSrc=%s\n", converted);
+    //debug messages
+    sprintf(print_msg, "destMac=%s\n", converted);
     //bubble(print_msg);
-    EV << print_msg<<"\n";
+    EV << print_msg << "\n";
 
     double previous_sim_time;
     double current_sim_time = simTime().dbl();
@@ -138,7 +140,11 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
         dyanimicFbSentMap.insert(std::make_pair(destMacAddressString, current_sim_time));
         processMsg(msg);
 
-        bubble("FIRST");
+        //debug messages
+        sprintf(print_msg, "FIRST destMac=%s\n", converted);
+        bubble(print_msg);
+        sprintf(print_msg, "FIRST destMac=%s current_time=%lf\n", converted, current_sim_time);
+        EV << "\nMsgCntrl.cc::ProcessFbMsg:" << print_msg;
     }
     else
     {
@@ -146,12 +152,22 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
         previous_sim_time = iteratorTemp->second;
         double delay_double = current_sim_time - previous_sim_time;
 
-        bubble("SECOND TIME");
+        //debug messages
+        sprintf(print_msg, "SECOND destMac=%s\n", converted);
+        bubble(print_msg);
+        sprintf(print_msg, "FIRST destMac=%s\n current_time=%lf delay=%lf", converted, current_sim_time, delay_double);
+        EV << "\nMsgCntrl.cc::ProcessFbMsg:" << print_msg;
 
-        if (delay_double > 1)
+        if (delay_double > DELAY_BOUND)
         {
             dyanimicFbSentMap.insert(std::make_pair(destMacAddressString, current_sim_time));
             processMsg(msg);
+
+            //debug messages
+            sprintf(print_msg, "UPDATE destMac=%s\n", converted);
+            bubble(print_msg);
+            sprintf(print_msg, "UPDATE destMac=%s current_time=%lf\n", converted, current_sim_time);
+            EV << "\nMsgCntrl.cc::ProcessFbMsg:" << print_msg;
 
         }
         else
@@ -162,10 +178,10 @@ void MsgCntrl::processFbMsg(Eth_pck *msg)
     //print the entire map
     for (iteratorTemp = dyanimicFbSentMap.begin(); iteratorTemp != dyanimicFbSentMap.end(); ++iteratorTemp)
     {
-        string address=iteratorTemp->first;
-        double time=iteratorTemp->second;
-        sprintf(print_msg, "destaddress - %s time - %lf\n", address.c_str(), time);
-        EV<<"Dynamic table values:"<<print_msg;
+        string address = iteratorTemp->first;
+        double time = iteratorTemp->second;
+        sprintf(print_msg, "destaddress - %s time - %lf", address.c_str(), time);
+        EV << "\nDynamic table values:" << print_msg;
     }
 }
 /*
