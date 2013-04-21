@@ -1,0 +1,78 @@
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <link rel="stylesheet" type="text/css" href="style.css" />
+   </head>
+   <body onload="if (top.frames['componentsframe'] == undefined) { s = window.location.toString(); window.location = 'index.html?p=' + s.substring(s.lastIndexOf('/')+1); }">
+<h2 class="comptitle">Packet <i>Eth_pck</i></h2>
+<b>File: <a href="src-Eth_pck.msg.html">src/Eth_pck.msg</a></b><br/>
+<p>TODO generated message class</p>
+<h3 class="subtitle">Fields:</h3>
+<table class="fieldstable">
+   <tr>
+      <th class="name">Name</th>
+      <th class="type">Type</th>
+      <th class="description">Description</th>
+   </tr>
+<tr class="local">
+   <td>macDest</td>
+   <td>
+      <i>
+unsigned char[6]</i>
+   </td>
+   <td></td>
+</tr>
+<tr class="local">
+   <td>macSrc</td>
+   <td>
+      <i>
+unsigned char[6]</i>
+   </td>
+   <td></td>
+</tr>
+<tr class="local">
+   <td>length</td>
+   <td>
+      <i>
+unsigned short</i>
+   </td>
+   <td>
+<p>the next variables are considered payload should not be considered as header</p>
+</td>
+</tr>
+<tr class="local">
+   <td>type</td>
+   <td>
+      <i>
+int</i>
+   </td>
+   <td>
+<p>0 - Genereal , 1- Request, 2 - Reply. used for RTT calculations.</p>
+</td>
+</tr>
+<tr class="local">
+   <td>msgNumber</td>
+   <td>
+      <i>
+unsigned int</i>
+   </td>
+   <td></td>
+</tr>
+</table>
+<h3 class="subtitle">Source code:</h3>
+<pre class="src"><span style="color: #808080; font-style: italic; ">//
+// TODO generated message class
+//
+</span><span style="color: #800000; font-weight: bold; ">packet</span><span style="color: #000000; "> </span><span style="color: #000000; ">Eth_pck</span><span style="color: #000000; ">
+{
+    </span><span style="color: #000080; font-weight: bold; ">unsigned</span><span style="color: #000000; "> </span><span style="color: #000080; font-weight: bold; ">char</span><span style="color: #000000; "> </span><span style="color: #000000; ">macDest</span><span style="color: #000000; ">[</span><span style="color: #008000; ">6</span><span style="color: #000000; ">];
+    </span><span style="color: #000080; font-weight: bold; ">unsigned</span><span style="color: #000000; "> </span><span style="color: #000080; font-weight: bold; ">char</span><span style="color: #000000; "> </span><span style="color: #000000; ">macSrc</span><span style="color: #000000; ">[</span><span style="color: #008000; ">6</span><span style="color: #000000; ">];
+    </span><span style="color: #000080; font-weight: bold; ">unsigned</span><span style="color: #000000; "> </span><span style="color: #000080; font-weight: bold; ">short</span><span style="color: #000000; "> </span><span style="color: #000000; ">length</span><span style="color: #000000; ">;
+     </span><span style="color: #808080; font-style: italic; ">// the next variables are considered payload should not be considered as header
+</span><span style="color: #000000; ">    </span><span style="color: #000080; font-weight: bold; ">int</span><span style="color: #000000; "> </span><span style="color: #000000; ">type</span><span style="color: #000000; ">; </span><span style="color: #808080; font-style: italic; ">// 0 - Genereal , 1- Request, 2 - Reply. used for RTT calculations.
+</span><span style="color: #000000; ">    </span><span style="color: #000080; font-weight: bold; ">unsigned</span><span style="color: #000000; "> </span><span style="color: #000080; font-weight: bold; ">int</span><span style="color: #000000; "> </span><span style="color: #000000; ">msgNumber</span><span style="color: #000000; ">;
+}
+</span></pre>
+   <hr><p class="footer"><a href="http://creativecommons.org/licenses/by-sa/3.0" target="_top"><img src="by-sa.png"></a> This documentation is released under the <a href="http://creativecommons.org/licenses/by-sa/3.0" target="_top">Creative Commons license</a></p>
+   </body>
+</html>
