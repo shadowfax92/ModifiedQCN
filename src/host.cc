@@ -23,7 +23,6 @@ void Host::initialize()
     myMac[3] = 0xFF;
     myMac[4] = 0xFF;
     myMac[5] = getIndex();
-    EV << "Initialized Host with MAC(index)=" << myMac[5] << "\n";
     msgIdCnt = 0;
     decideCnt = 0;
     // init rand array for ip randomize, array will hold all adresses of all host but myself
