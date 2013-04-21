@@ -154,7 +154,7 @@ void Host::processSelfTimer(cMessage *msg)
         scheduleAt(cha->getTransmissionFinishTime(), msg); //scheduling the event again exactly when the channel stops being busy
 
         /* statistic calculation */
-        emit(dataRateSig, RL->cRate);
+        //emit(dataRateSig, RL->cRate);
     }
     if (!strcmp(msg->getName(), "timeExpired"))
     {
@@ -177,7 +177,7 @@ void Host::processSelfTimer(cMessage *msg)
         bubble("Drift timer expired");
 
         /* statistic calculation */
-        emit(dataRateSig, RL->cRate);
+        //emit(dataRateSig, RL->cRate);
     }
 }
 /*
