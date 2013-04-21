@@ -74,6 +74,9 @@ void Host::handleMessage(cMessage *msg)
 
     //update the display
     updateDisplayAboveModule();
+
+    /* statistic calculation */
+    emit(dataRateSig, RL->cRate);
 }
 /*
  * Description:	this function handles messages that were received from CP
@@ -126,10 +129,9 @@ void Host::processSelfTimer(cMessage *msg)
     //TODO remove this after debug drift clock
     //debug message
     char print_msg[50];
-    sprintf(print_msg,"host.cc:: selfMessageName=%s",msg->getName());
-    bubble(print_msg);
-    EV<<"\n\n"<<print_msg;
-
+    sprintf(print_msg, "host.cc:: host_id=%d selfMessageName=%s",host_id, msg->getName());
+    //bubble(print_msg);
+    EV << "\n\n" << print_msg;
 
     if (!strcmp(msg->getName(), "sendEvent"))
     {
@@ -153,7 +155,6 @@ void Host::processSelfTimer(cMessage *msg)
 
         /* statistic calculation */
         emit(dataRateSig, RL->cRate);
-
     }
     if (!strcmp(msg->getName(), "timeExpired"))
     {
@@ -174,6 +175,9 @@ void Host::processSelfTimer(cMessage *msg)
         //debug message
         EV << "host.cc: drift timer expired\n previous rate=" << current_date_rate << "\nnew rate=" << new_date_rate;
         bubble("Drift timer expired");
+
+        /* statistic calculation */
+        emit(dataRateSig, RL->cRate);
     }
 }
 /*
@@ -289,12 +293,12 @@ unsigned char Host::decideSend()
 
 void Host::updateDisplayAboveModule()
 {
-    if(ev.isGUI())
+    if (ev.isGUI())
     {
         char display_msg[100];
-        sprintf(display_msg,"cRate=%lf",RL->cRate);
+        sprintf(display_msg, "cRate=%lf", RL->cRate);
         //sprintf(display_msg,"cRate=%lf tRate=%lf",RL->cRate,RL->tRate);
-        getDisplayString().setTagArg("t",0,display_msg);
+        getDisplayString().setTagArg("t", 0, display_msg);
     }
 }
 
@@ -403,7 +407,7 @@ void RP::afterTransmit(Eth_pck* msg)
 {
 
     int fastRecoveryThreshold = mySelf->getAncestorPar("FAST_RECOVERY_TH");
-    double bcLimit = cRate * 24 * pow(10, -5);//mySelf->getAncestorPar("BC_LIMIT");
+    double bcLimit = cRate * 24 * pow(10, -5); //mySelf->getAncestorPar("BC_LIMIT");
     double expireThreshold = 0;
     // Rate limiter should be inactive if the current rate reached the maximum value
     if (cRate == MAX_DATA_RATE)
@@ -411,7 +415,7 @@ void RP::afterTransmit(Eth_pck* msg)
         state = false;
         cRate = MAX_DATA_RATE;
         tRate = MAX_DATA_RATE;
-        TXBCount = cRate * 24 * pow(10, -5);//bcLimit;
+        TXBCount = cRate * 24 * pow(10, -5); //bcLimit;
         SICount = 0;
         if (timer)
         {
