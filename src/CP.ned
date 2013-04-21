@@ -1,8 +1,5 @@
-package cngcontrol;
+package qcn_modified;
 
-//
-// TODO auto-generated module
-//
 simple CP
 {
      parameters:

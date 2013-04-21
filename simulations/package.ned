@@ -1,3 +1,3 @@
-package cngcontrol.simulations;
+package qcn_modified.simulations;
 
 @license(LGPL);

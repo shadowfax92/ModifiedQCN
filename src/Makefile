@@ -1,12 +1,12 @@
 #
-# OMNeT++/OMNEST Makefile for ModifiedQCN
+# OMNeT++/OMNEST Makefile for QCN_modified
 #
 # This file was generated with the command:
 #  opp_makemake -f --deep
 #
 
 # Name of target to be created (-o option)
-TARGET = ModifiedQCN$(EXE_SUFFIX)
+TARGET = QCN_modified$(EXE_SUFFIX)
 
 # User interface (uncomment one) (-u option)
 USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
@@ -101,7 +101,7 @@ msgheaders: $(MSGFILES:.msg=_m.h)
 
 clean:
 	-rm -rf $O
-	-rm -f ModifiedQCN ModifiedQCN.exe libModifiedQCN.so libModifiedQCN.a libModifiedQCN.dll libModifiedQCN.dylib
+	-rm -f QCN_modified QCN_modified.exe libQCN_modified.so libQCN_modified.a libQCN_modified.dll libQCN_modified.dylib
 	-rm -f ./*_m.cc ./*_m.h
 	-rm -f results/*_m.cc results/*_m.h
 

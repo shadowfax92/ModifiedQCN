@@ -1,4 +1,4 @@
-package cngcontrol;
+package qcn_modified;
 
 network Dumbell
 {

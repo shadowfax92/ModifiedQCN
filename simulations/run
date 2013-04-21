@@ -1,4 +1,4 @@
 #!/bin/sh
 cd `dirname $0`
-../src/cngcontrol -n .:../src $*
-# for shared lib, use: opp_run -l ../src/cngcontrol -n .:../src $*
+../src/qcn_modified -n .:../src $*
+# for shared lib, use: opp_run -l ../src/qcn_modified -n .:../src $*

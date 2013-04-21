@@ -1,0 +1,148 @@
+file 332946 1366566966                                          
+version 2
+run General-0-20130421-23:25:18-10300
+attr configname General
+attr datetime 20130421-23:25:18
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network Dumbell
+attr processid 10300
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+
+vector 3  Dumbell.host[1]  cRate:vector  ETV
+attr interpolationmode  sample-hold
+attr source  dataRate
+attr title  "dataRate, vector"
+vector 11  Dumbell.host[5]  cRate:vector  ETV
+attr interpolationmode  sample-hold
+attr source  dataRate
+attr title  "dataRate, vector"
+vector 34  Dumbell.switch[1].conP[4]  qlen:vector  ETV
+attr interpolationmode  linear
+attr source  QLen
+attr title  "queue size, vector"
+vector 5  Dumbell.host[2]  cRate:vector  ETV
+attr interpolationmode  sample-hold
+attr source  dataRate
+attr title  "dataRate, vector"
+vector 24  Dumbell.switch[0].conP[4]  qlen:vector  ETV
+attr interpolationmode  linear
+attr source  QLen
+attr title  "queue size, vector"
+vector 15  Dumbell.host[7]  cRate:vector  ETV
+attr interpolationmode  sample-hold
+attr source  dataRate
+attr title  "dataRate, vector"
+vector 9  Dumbell.host[4]  cRate:vector  ETV
+attr interpolationmode  sample-hold
+attr source  dataRate
+attr title  "dataRate, vector"
+vector 7  Dumbell.host[3]  cRate:vector  ETV
+attr interpolationmode  sample-hold
+attr source  dataRate
+attr title  "dataRate, vector"
+vector 13  Dumbell.host[6]  cRate:vector  ETV
+attr interpolationmode  sample-hold
+attr source  dataRate
+attr title  "dataRate, vector"
+vector 28  Dumbell.switch[1].conP[1]  qlen:vector  ETV
+attr interpolationmode  linear
+attr source  QLen
+attr title  "queue size, vector"
+vector 1  Dumbell.host[0]  cRate:vector  ETV
+attr interpolationmode  sample-hold
+attr source  dataRate
+attr title  "dataRate, vector"
+vector 18  Dumbell.switch[0].conP[1]  qlen:vector  ETV
+attr interpolationmode  linear
+attr source  QLen
+attr title  "queue size, vector"
+vector 30  Dumbell.switch[1].conP[2]  qlen:vector  ETV
+attr interpolationmode  linear
+attr source  QLen
+attr title  "queue size, vector"
+vector 16  Dumbell.switch[0].conP[0]  qlen:vector  ETV
+attr interpolationmode  linear
+attr source  QLen
+attr title  "queue size, vector"
+vector 35  Dumbell.switch[1].conP[4]  fbCnt:vector  ETV
+attr interpolationmode  none
+attr source  fbCnt
+attr title  "fb counter, vector"
+vector 25  Dumbell.switch[0].conP[4]  fbCnt:vector  ETV
+attr interpolationmode  none
+attr source  fbCnt
+attr title  "fb counter, vector"
+vector 32  Dumbell.switch[1].conP[3]  qlen:vector  ETV
+attr interpolationmode  linear
+attr source  QLen
+attr title  "queue size, vector"
+vector 26  Dumbell.switch[1].conP[0]  qlen:vector  ETV
+attr interpolationmode  linear
+attr source  QLen
+attr title  "queue size, vector"
+vector 22  Dumbell.switch[0].conP[3]  qlen:vector  ETV
+attr interpolationmode  linear
+attr source  QLen
+attr title  "queue size, vector"
+vector 2  Dumbell.host[1]  Rtt:vector  ETV
+attr interpolationmode  linear
+attr source  RTT
+attr title  "RTT measurment, vector"
+vector 20  Dumbell.switch[0].conP[2]  qlen:vector  ETV
+attr interpolationmode  linear
+attr source  QLen
+attr title  "queue size, vector"
+vector 14  Dumbell.host[7]  Rtt:vector  ETV
+attr interpolationmode  linear
+attr source  RTT
+attr title  "RTT measurment, vector"
+vector 23  Dumbell.switch[0].conP[3]  fbCnt:vector  ETV
+attr interpolationmode  none
+attr source  fbCnt
+attr title  "fb counter, vector"
+vector 12  Dumbell.host[6]  Rtt:vector  ETV
+attr interpolationmode  linear
+attr source  RTT
+attr title  "RTT measurment, vector"
+vector 0  Dumbell.host[0]  Rtt:vector  ETV
+attr interpolationmode  linear
+attr source  RTT
+attr title  "RTT measurment, vector"
+vector 8  Dumbell.host[4]  Rtt:vector  ETV
+attr interpolationmode  linear
+attr source  RTT
+attr title  "RTT measurment, vector"
+0	3984 29 16176 16176 0.0969488 0.0969488 1 0.0969488 0.0969488 0.0969488 0.00939906982144
+1	4013 25736 1247 26722 0.015504 0.381271999999 839 1000000 10000000 5613000000 5.0849e+016
+2	29749 26 7625 7625 0.049472 0.049472 1 0.049472 0.049472 0.049472 0.002447478784
+3	29775 27100 1166 26729 0.015 0.381431799988 843 1000000 10000000 5488000000 4.9374e+016
+5	56875 34587 1175 26725 0.0150576 0.381410799981 1125 1000000 10000000 8761000000 8.2545e+016
+7	91462 33619 1194 26734 0.015112 0.381666999979 1105 1000000 10000000 8598000000 8.0746e+016
+8	125081 39 25782 25782 0.355951999998 0.355951999998 1 0.353743999998 0.353743999998 0.353743999998 0.12513481753459
+9	125120 30260 1188 26711 0.0151048 0.381130999989 989 1000000 10000000 7288000000 6.701e+016
+11	155380 31263 1169 26706 0.0150072 0.380981599991 1003 1000000 16000000 7393000000 6.8389e+016
+12	186643 28 16131 16131 0.095532 0.095532 1 0.095532 0.095532 0.095532 0.009126363024
+13	186671 30073 1238 26731 0.015439589041 0.381452599983 957 1000000 16000000 6973000000 6.5055e+016
+14	216744 40 14796 14796 0.083749599999 0.083749599999 1 0.083749599999 0.083749599999 0.083749599999 0.0070139954999925
+15	216784 33604 1183 26695 0.015096 0.380818799981 1014 1000000 16000000 7575000000 7.0017e+016
+16	250388 973 1861 26618 0.01932 0.379591999999 33 0.201 0.57 9.425 2.901785
+18	251361 1409 1381 26562 0.016304 0.377911999999 47 0.2 1.212 17.778 9.081724
+20	252770 1298 8250 26494 0.052615999999 0.376015999999 42 0.205 1.693 18.914 13.186066
+22	254068 1059 4316 26428 0.032352 0.374183999999 35 0.2 2.511 18.833 22.584837
+23	255127 27 14807 14807 0.083767999999 0.083767999999 1 0 0 0 0
+24	255154 36838 1179 26664 0.0150816 0.380174999988 1156 17.133 299.999 202610.105 44774056.180139
+25	291992 887 2014 26451 0.020200799999 0.374783199988 33 4 177 1195 150895
+26	292879 1069 3985 26614 0.030648 0.379503999998 36 0.201 2.201 17.143 16.492667
+28	293948 1218 1246 25676 0.01548 0.352399999998 41 0.202 2.298 21.24 21.943464
+30	295166 1203 1544 26559 0.017304 0.377895999998 41 0.203 2.12 23.517 25.260489
+32	296369 1265 2498 26223 0.022656 0.368567999998 42 0.201 1.597 17.161 12.142743
+34	297634 34419 1170 26624 0.0150072 0.379635799991 1114 26.882 300 202336.21 45076123.9913
+35	332053 893 2009 26370 0.020172 0.372342999989 33 4 177 1177 172327
