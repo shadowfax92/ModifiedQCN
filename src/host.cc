@@ -71,6 +71,9 @@ void Host::handleMessage(cMessage *msg)
     char print_msg[100];
     sprintf(print_msg, "handleMessage: Host_id=%d cRate=%lf tRate=%lf", host_id, RL->cRate, RL->tRate);
     EV << "\nhost.cc:" << print_msg;
+
+    //update the display
+    updateDisplayAboveModule();
 }
 /*
  * Description:	this function handles messages that were received from CP
@@ -283,6 +286,18 @@ unsigned char Host::decideSend()
     };
     return destination;
 }
+
+void Host::updateDisplayAboveModule()
+{
+    if(ev.isGUI())
+    {
+        char display_msg[100];
+        sprintf(display_msg,"cRate=%lf",RL->cRate);
+        //sprintf(display_msg,"cRate=%lf tRate=%lf",RL->cRate,RL->tRate);
+        getDisplayString().setTagArg("t",0,display_msg);
+    }
+}
+
 /*
  * Description:	the constructor of RP, initializing the RL and several other variables.
  */

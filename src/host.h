@@ -95,6 +95,7 @@ protected:
             unsigned int id);
     virtual void handleRegularMsg(Eth_pck* msg);
     virtual unsigned char decideSend();
+    virtual void updateDisplayAboveModule();
 private:
     // description on what those functions do on c file
     int *randArr; // used for randoming

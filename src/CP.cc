@@ -119,6 +119,8 @@ void CP::processMsg(Eth_pck *msg)
 
 }
 
+//void CP::
+
 /*
  * Function implementation of CPalg class
  */
