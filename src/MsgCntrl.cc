@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #define FEEDBACK 1600
-#define DELAY_BOUND 0.000030 //In simulation time
+#define DELAY_BOUND 1.0//0.000030 //In simulation time
 Define_Module(MsgCntrl);
 
 void MsgCntrl::initialize()
