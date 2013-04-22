@@ -17,13 +17,13 @@ network Dumbell
 
         //drift clock parameter
         double DRIFT_CLOCK_TIMER = default(5);//mSec
-        double DRIFT_CLOCK_INCREASE_FACTOR=default(2);//mSec
+        double DRIFT_CLOCK_INCREASE_FACTOR = default(2);//mSec
 
 
     types:
         channel Channel extends ned.DatarateChannel
         {
-            datarate = 1000kbps;
+            datarate = 100Mbps;
                 //datarate = 10Gbps;
                 //delay = 10us;
                 //ber = 1e-10;
