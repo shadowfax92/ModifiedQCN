@@ -1,14 +1,14 @@
 version 2
-run General-0-20130422-10:05:02-5512
+run General-0-20130422-10:10:26-6340
 attr configname General
-attr datetime 20130422-10:05:02
+attr datetime 20130422-10:10:26
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvars2 $repetition=0
 attr measurement ""
 attr network Dumbell
-attr processid 5512
+attr processid 6340
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -17,42 +17,42 @@ attr seedset 0
 
 scalar Dumbell.host[0].out.channel 	disabled 	0
 scalar Dumbell.host[0].out.channel 	delay 	0
-scalar Dumbell.host[0].out.channel 	datarate 	28570243.027228
+scalar Dumbell.host[0].out.channel 	datarate 	10000000
 scalar Dumbell.host[0].out.channel 	ber 	0
 scalar Dumbell.host[0].out.channel 	per 	0
 scalar Dumbell.host[1].out.channel 	disabled 	0
 scalar Dumbell.host[1].out.channel 	delay 	0
-scalar Dumbell.host[1].out.channel 	datarate 	24896176.509491
+scalar Dumbell.host[1].out.channel 	datarate 	10795574.945795
 scalar Dumbell.host[1].out.channel 	ber 	0
 scalar Dumbell.host[1].out.channel 	per 	0
 scalar Dumbell.host[2].out.channel 	disabled 	0
 scalar Dumbell.host[2].out.channel 	delay 	0
-scalar Dumbell.host[2].out.channel 	datarate 	23471794.80213
+scalar Dumbell.host[2].out.channel 	datarate 	14601813.79166
 scalar Dumbell.host[2].out.channel 	ber 	0
 scalar Dumbell.host[2].out.channel 	per 	0
 scalar Dumbell.host[3].out.channel 	disabled 	0
 scalar Dumbell.host[3].out.channel 	delay 	0
-scalar Dumbell.host[3].out.channel 	datarate 	28371469.684297
+scalar Dumbell.host[3].out.channel 	datarate 	11163667.797744
 scalar Dumbell.host[3].out.channel 	ber 	0
 scalar Dumbell.host[3].out.channel 	per 	0
 scalar Dumbell.host[4].out.channel 	disabled 	0
 scalar Dumbell.host[4].out.channel 	delay 	0
-scalar Dumbell.host[4].out.channel 	datarate 	21814717.253947
+scalar Dumbell.host[4].out.channel 	datarate 	10000000
 scalar Dumbell.host[4].out.channel 	ber 	0
 scalar Dumbell.host[4].out.channel 	per 	0
 scalar Dumbell.host[5].out.channel 	disabled 	0
 scalar Dumbell.host[5].out.channel 	delay 	0
-scalar Dumbell.host[5].out.channel 	datarate 	27147638.582088
+scalar Dumbell.host[5].out.channel 	datarate 	10000000
 scalar Dumbell.host[5].out.channel 	ber 	0
 scalar Dumbell.host[5].out.channel 	per 	0
 scalar Dumbell.host[6].out.channel 	disabled 	0
 scalar Dumbell.host[6].out.channel 	delay 	0
-scalar Dumbell.host[6].out.channel 	datarate 	28938023.626421
+scalar Dumbell.host[6].out.channel 	datarate 	14099190.876296
 scalar Dumbell.host[6].out.channel 	ber 	0
 scalar Dumbell.host[6].out.channel 	per 	0
 scalar Dumbell.host[7].out.channel 	disabled 	0
 scalar Dumbell.host[7].out.channel 	delay 	0
-scalar Dumbell.host[7].out.channel 	datarate 	31695557.283223
+scalar Dumbell.host[7].out.channel 	datarate 	11940559.695413
 scalar Dumbell.host[7].out.channel 	ber 	0
 scalar Dumbell.host[7].out.channel 	per 	0
 scalar Dumbell.switch[0].out[0].channel 	disabled 	0

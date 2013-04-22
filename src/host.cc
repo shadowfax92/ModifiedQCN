@@ -290,7 +290,7 @@ RP::RP(cDatarateChannel* channel, cModule* me) {
     tRate = channel->getDatarate();
     MAX_DATA_RATE = channel->getDatarate();
     //adding the dynmic BC_LIMIT solution
-    TXBCount = me->getAncestorPar("BC_LIMIT");//cRate * 24 * pow(10, -5);
+    TXBCount = cRate * 24 * pow(10, -5);//me->getAncestorPar("BC_LIMIT");//cRate * 24 * pow(10, -5);
     SICount = 0;
     timer = false;
     timerSCount = 0;
@@ -338,8 +338,7 @@ void RP::FeedbackMsg(Eth_pck* msg) {
         // in the first cycle of fast recovery. fb<0 singal wuld ot reset the target rate.
         if (SICount != 0) {
             tRate = cRate;
-            TXBCount = mySelf->getAncestorPar("BC_LIMIT");
-            //TXBCount = cRate * 24 * pow(10, -5); //TXBCount = me->getAncestorPar("BC_LIMIT");
+            TXBCount = cRate * 24 * pow(10, -5);//mySelf->getAncestorPar("BC_LIMIT");//cRate * 24 * pow(10, -5);
         }
         // setting the stage counters
         SICount = 0;
@@ -375,7 +374,7 @@ void RP::FeedbackMsg(Eth_pck* msg) {
 void RP::afterTransmit(Eth_pck* msg) {
 
     int fastRecoveryThreshold = mySelf->getAncestorPar("FAST_RECOVERY_TH");
-    double bcLimit = mySelf->getAncestorPar("BC_LIMIT"); //cRate * 24 * pow(10, -5);
+    double bcLimit = cRate * 24 * pow(10, -5);//mySelf->getAncestorPar("BC_LIMIT"); //cRate * 24 * pow(10, -5);
     double expireThreshold = 0;
     // Rate limiter should be inactive if the current rate reached the maximum value
     if (cRate == MAX_DATA_RATE) {
