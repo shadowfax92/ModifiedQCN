@@ -24,6 +24,7 @@ void Host::initialize() {
     myMac[5] = getIndex();
     msgIdCnt = 0;
     decideCnt = 0;
+    fb_cnt=0;
     // init rand array for ip randomize, array will hold all adresses of all host but myself
     // on later stages will random one of the cells.
     int size = par("hostNum");
@@ -42,8 +43,9 @@ void Host::initialize() {
     replyMsgGenCnt = 0;
     generalMsgGenCnt = 0;
     replyMsgRecCnt = 0;
-    RTTSig = registerSignal("RTT");
-    dataRateSig = registerSignal("dataRate");
+    RTTSignal = registerSignal("RTT");
+    dataRateSignal = registerSignal("dataRate");
+    fbCountSignal = registerSignal("fbCount");
     /* initializing variables for QCN algorithm */
 
     RL = new RP((cDatarateChannel*) gate("out")->getTransmissionChannel(),
@@ -74,7 +76,7 @@ void Host::handleMessage(cMessage *msg) {
     updateDisplayAboveModule();
 
     /* statistic calculation */
-    emit(dataRateSig, RL->cRate);
+    emit(dataRateSignal, RL->cRate);
 }
 /*
  * Description:	this function handles messages that were received from CP
@@ -101,6 +103,11 @@ void Host::processMsgFromLowerLayer(Eth_pck *packet) {
             RL->FeedbackMsg(packet);
             //since feedback message is received. restart drift clock
             RL->restartDriftClock();
+
+            /*statistic calculations*/
+            fb_cnt++;
+            emit(fbCountSignal,fb_cnt);
+
         } else // regular message need to pass to check if its mine. and do stuff
         {
 
@@ -231,7 +238,7 @@ void Host::handleRegularMsg(Eth_pck* msg) {
         msgQueue.push_back(pck);
     } else if (msg->getType() == reply) {
         double delay = simTime().dbl() - timeStamps[msg->getMsgNumber()];
-        emit(RTTSig, delay);
+        emit(RTTSignal, delay);
         replyMsgRecCnt++;
     }
 }

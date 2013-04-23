@@ -82,9 +82,11 @@ private:
 
 class Host: public cSimpleModule {
 public:
-    simsignal_t RTTSig;
-    simsignal_t dataRateSig;
+    simsignal_t RTTSignal;
+    simsignal_t dataRateSignal;
+    simsignal_t fbCountSignal;
     int host_id;
+    int fb_cnt;
 protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);

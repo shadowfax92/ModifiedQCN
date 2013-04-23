@@ -10,11 +10,11 @@ void CP::initialize()
     selfEvent = new cMessage("sendEvent");
 
     /* for statistics */
-    qlenSig = registerSignal("QLen");
+    qlenSignal = registerSignal("QLen");
 
-    lossSig = registerSignal("LossSg");
+    lossSignal = registerSignal("LossSg");
 
-    fbSig = registerSignal("fbCnt");
+    fbCountSignal = registerSignal("fbCnt");
     interval = par("interval");
     lastTime = simTime().dbl();
     fbCnt = 0;
@@ -231,7 +231,7 @@ Eth_pck *CPalg::receivedFrame(Eth_pck *incomeFrame)
         CP* temp = (CP*) fatherModul;
         if (simTime().dbl() - temp->lastTime > temp->interval)
         {
-            temp->emit(temp->fbSig, temp->fbCnt);
+            temp->emit(temp->fbCountSignal, temp->fbCnt);
             temp->fbCnt = 1;
             temp->lastTime = simTime().dbl();
         }
@@ -278,12 +278,12 @@ bool CPalg::addQlen(double len)
     if (qlen + len > maxLen)
     {
         tLoss = simTime().dbl();
-        temp->emit(temp->lossSig, tLoss);
+        temp->emit(temp->lossSignal, tLoss);
         return false;
     }
 
     qlen += len;
-    temp->emit(temp->qlenSig, qlen);
+    temp->emit(temp->qlenSignal, qlen);
     //qLenStat.record(qlen);
     return true;
 }

@@ -55,11 +55,10 @@ class CP : public cSimpleModule
 {
     public:
         /* statistics variables */
-        simsignal_t qlenSig;
+        simsignal_t qlenSignal;
+        simsignal_t lossSignal;
+        simsignal_t fbCountSignal;
 
-        simsignal_t lossSig;
-
-        simsignal_t fbSig;
         double lastTime;
         double interval;
         int fbCnt;

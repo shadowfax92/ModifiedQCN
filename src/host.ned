@@ -10,6 +10,9 @@ simple Host
         @statistic[Rtt](title="RTT measurment"; source="RTT"; record=vector,stats,histogram; interpolationmode=linear);
         @signal[dataRate](type="double");
         @statistic[cRate](title="dataRate"; source="dataRate"; record=vector,stats; interpolationmode=sample-hold);
+        @signal[fbCount](type="int");
+        @statistic[FbCount](title="Feedback Message Count"; source="fbCount"; record=vector,stats,histogram; interpolationmode=linear);
+        
         @display("i=device/pc");
         int hostNum = default(8);
         volatile int dataLength;
