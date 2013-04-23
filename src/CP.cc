@@ -14,7 +14,7 @@ void CP::initialize()
 
     lossSignal = registerSignal("LossSg");
 
-    fbCountSignal = registerSignal("fbCnt");
+    fbCountSignalCP = registerSignal("fbCnt");
     interval = par("interval");
     lastTime = simTime().dbl();
     fbCnt = 0;
@@ -231,7 +231,7 @@ Eth_pck *CPalg::receivedFrame(Eth_pck *incomeFrame)
         CP* temp = (CP*) fatherModul;
         if (simTime().dbl() - temp->lastTime > temp->interval)
         {
-            temp->emit(temp->fbCountSignal, temp->fbCnt);
+            temp->emit(temp->fbCountSignalCP, temp->fbCnt);
             temp->fbCnt = 1;
             temp->lastTime = simTime().dbl();
         }

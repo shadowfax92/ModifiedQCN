@@ -7,6 +7,7 @@
 #define ARP_REQUEST_LENGTH 6
 #define ETH_LENGTH 14
 #define UNDEFINED -1
+#define FB_COUNT_INTERVAL 0.01;
 // for QCN algorithm
 Define_Module(Host);
 void Host::initialize() {
@@ -26,7 +27,9 @@ void Host::initialize() {
     decideCnt = 0;
     //fb count code
     fb_cnt = 0;
-    fbCountInterval = par("fbCounterInterval");
+    //fbCountInterval = par("fbCounterInterval");
+    //fbCountInterval=FB_COUNT_INTERVAL;
+    fbCountInterval=par("fbInterval");
     lastTimeNotedFbCount = simTime().dbl();
 
     // init rand array for ip randomize, array will hold all adresses of all host but myself
@@ -49,7 +52,7 @@ void Host::initialize() {
     replyMsgRecCnt = 0;
     RTTSignal = registerSignal("RTT");
     dataRateSignal = registerSignal("dataRate");
-    fbCountSignal = registerSignal("fbCount");
+    fbCountSignalRP = registerSignal("fbCount");
     /* initializing variables for QCN algorithm */
 
     RL = new RP((cDatarateChannel*) gate("out")->getTransmissionChannel(),
@@ -109,16 +112,13 @@ void Host::processMsgFromLowerLayer(Eth_pck *packet) {
             RL->restartDriftClock();
 
             /*statistic calculations*/
-            fb_cnt++;
-            emit(fbCountSignal, fb_cnt);
-            if (simTime().dbl() - lastTimeNotedFbCount > fbCountInterval) {
-                emit(fbCountSignal, fb_cnt);
-                fb_cnt = 1;
-                lastTimeNotedFbCount = simTime().dbl();
-            } else {
-                fb_cnt++;
-            }
-
+//            if (simTime().dbl() - lastTimeNotedFbCount > fbCountInterval) {
+//                emit(fbCountSignalRP, fb_cnt);
+//                fb_cnt = 1;
+//                lastTimeNotedFbCount = simTime().dbl();
+//            } else {
+//                fb_cnt++;
+//            }
         } else // regular message need to pass to check if its mine. and do stuff
         {
 
@@ -384,6 +384,19 @@ void RP::FeedbackMsg(Eth_pck* msg) {
         }
     }
     delete FB;
+
+    /*
+     * statistic calculation
+     */
+    Host* currentHost = (Host*) mySelf;
+//    if ((simTime().dbl() - currentHost->lastTimeNotedFbCount) > currentHost->fbCountInterval) {
+    if ((simTime().dbl() - currentHost->lastTimeNotedFbCount)> currentHost->fbCountInterval) {
+        currentHost->emit(currentHost->fbCountSignalRP, currentHost->fb_cnt);
+        currentHost->fb_cnt = 1;
+        currentHost->lastTimeNotedFbCount = simTime().dbl();
+    } else {
+        currentHost->fb_cnt++;
+    }
 }
 /*
  * Description:	this function makes calculation on each frame that is about to get transmitted

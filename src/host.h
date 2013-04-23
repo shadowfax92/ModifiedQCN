@@ -86,11 +86,11 @@ class Host: public cSimpleModule {
 public:
     simsignal_t RTTSignal;
     simsignal_t dataRateSignal;
-    simsignal_t fbCountSignal;
+    simsignal_t fbCountSignalRP;
     int host_id;
     int fb_cnt;
     //fb counter interval
-    int fbCountInterval;
+    double fbCountInterval;
     double lastTimeNotedFbCount;
 protected:
     virtual void initialize();
