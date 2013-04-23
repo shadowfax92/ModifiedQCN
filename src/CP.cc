@@ -239,6 +239,8 @@ Eth_pck *CPalg::receivedFrame(Eth_pck *incomeFrame)
         {
             temp->fbCnt++;
         }
+//        temp->fbCnt++;
+//        temp->emit(temp->fbCountSignal, temp->fbCnt);
         return pck;
     }
     return NULL;

@@ -72,6 +72,8 @@ public:
     //drift clock message
     cMessage* driftClockTimerMessage;
 
+    //cModule *fatherModul;
+
     int host_id;
 private:
     double MAX_DATA_RATE;
@@ -87,6 +89,9 @@ public:
     simsignal_t fbCountSignal;
     int host_id;
     int fb_cnt;
+    //fb counter interval
+    int fbCountInterval;
+    double lastTimeNotedFbCount;
 protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
@@ -114,6 +119,7 @@ private:
     unsigned long int replyMsgRecCnt;
     /* statistics help*/
     double timeStamps[MAX_ID_NUM];
+
 
 };
 

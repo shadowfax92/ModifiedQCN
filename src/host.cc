@@ -24,7 +24,11 @@ void Host::initialize() {
     myMac[5] = getIndex();
     msgIdCnt = 0;
     decideCnt = 0;
-    fb_cnt=0;
+    //fb count code
+    fb_cnt = 0;
+    fbCountInterval = par("fbCounterInterval");
+    lastTimeNotedFbCount = simTime().dbl();
+
     // init rand array for ip randomize, array will hold all adresses of all host but myself
     // on later stages will random one of the cells.
     int size = par("hostNum");
@@ -106,7 +110,14 @@ void Host::processMsgFromLowerLayer(Eth_pck *packet) {
 
             /*statistic calculations*/
             fb_cnt++;
-            emit(fbCountSignal,fb_cnt);
+            emit(fbCountSignal, fb_cnt);
+            if (simTime().dbl() - lastTimeNotedFbCount > fbCountInterval) {
+                emit(fbCountSignal, fb_cnt);
+                fb_cnt = 1;
+                lastTimeNotedFbCount = simTime().dbl();
+            } else {
+                fb_cnt++;
+            }
 
         } else // regular message need to pass to check if its mine. and do stuff
         {
@@ -297,7 +308,7 @@ RP::RP(cDatarateChannel* channel, cModule* me) {
     tRate = channel->getDatarate();
     MAX_DATA_RATE = channel->getDatarate();
     //adding the dynmic BC_LIMIT solution
-    TXBCount = cRate * 24 * pow(10, -5);//me->getAncestorPar("BC_LIMIT");//cRate * 24 * pow(10, -5);
+    TXBCount = cRate * 24 * pow(10, -5); //me->getAncestorPar("BC_LIMIT");//cRate * 24 * pow(10, -5);
     SICount = 0;
     timer = false;
     timerSCount = 0;
@@ -345,7 +356,7 @@ void RP::FeedbackMsg(Eth_pck* msg) {
         // in the first cycle of fast recovery. fb<0 singal wuld ot reset the target rate.
         if (SICount != 0) {
             tRate = cRate;
-            TXBCount = cRate * 24 * pow(10, -5);//mySelf->getAncestorPar("BC_LIMIT");//cRate * 24 * pow(10, -5);
+            TXBCount = cRate * 24 * pow(10, -5); //mySelf->getAncestorPar("BC_LIMIT");//cRate * 24 * pow(10, -5);
         }
         // setting the stage counters
         SICount = 0;
@@ -381,7 +392,7 @@ void RP::FeedbackMsg(Eth_pck* msg) {
 void RP::afterTransmit(Eth_pck* msg) {
 
     int fastRecoveryThreshold = mySelf->getAncestorPar("FAST_RECOVERY_TH");
-    double bcLimit = cRate * 24 * pow(10, -5);//mySelf->getAncestorPar("BC_LIMIT"); //cRate * 24 * pow(10, -5);
+    double bcLimit = cRate * 24 * pow(10, -5); //mySelf->getAncestorPar("BC_LIMIT"); //cRate * 24 * pow(10, -5);
     double expireThreshold = 0;
     // Rate limiter should be inactive if the current rate reached the maximum value
     if (cRate == MAX_DATA_RATE) {
